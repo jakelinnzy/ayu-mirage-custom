@@ -14,8 +14,8 @@ let g:colors_name="ayu-mirage-custom"
 "
 " The performance impact of this call can be measured in the hundreds of
 " *nanoseconds* and such could be considered "production safe".
-lua package.loaded['lush_theme.ayu-mirage-custom'] = nil
+lua package.loaded['lush-theme.ayu-mirage-custom'] = nil
 
 " include our theme file and pass it to lush to apply
-lua require('lush')(require('lush_theme.ayu-mirage-custom'))
+lua require('lush')(require('lush-theme.ayu-mirage-custom'))
 
