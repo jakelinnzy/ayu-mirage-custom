@@ -45,8 +45,138 @@
 local lush = require('lush')
 local hsl = lush.hsl
 
+local p = {
+  bg = hsl '#212733',
+
+  comment = hsl '#7c8798',
+  markup = hsl '#F07178',
+  constant = hsl '#D4BFFF',
+  identifier = hsl '#80D4FF',
+  operator = hsl('#F29E74').rotate(-5),
+  tag = hsl '#5CCFE6',
+  regexp = hsl '#95E6CB',
+  string = hsl '#BBE67E',
+  func = hsl '#FFD57F',
+  special = hsl '#FFC44C',
+  keyword = hsl '#FFAE57',
+
+  error = hsl '#FF3333',
+  accent = hsl '#FFCC66',
+  panel = hsl '#272D38',
+  guide = hsl '#3D4751',
+  line = hsl '#242B38',
+  selection = hsl '#343F4C',
+  fg = hsl '#D9D7CE',
+  fg_idle = hsl '#607080',
+}
+
+vim.g.terminal_color_0 = tostring(p.bg)
+vim.g.terminal_color_1 = tostring(p.markup)
+vim.g.terminal_color_2 = tostring(p.string)
+vim.g.terminal_color_3 = tostring(p.accent)
+vim.g.terminal_color_4 = tostring(p.tag)
+vim.g.terminal_color_5 = tostring(p.constant)
+vim.g.terminal_color_6 = tostring(p.regexp)
+vim.g.terminal_color_7 = "#FFFFFF"
+vim.g.terminal_color_8 = tostring(p.fg_idle)
+vim.g.terminal_color_9 = tostring(p.error)
+vim.g.terminal_color_10 = tostring(p.string)
+vim.g.terminal_color_11 = tostring(p.accent)
+vim.g.terminal_color_12 = tostring(p.tag)
+vim.g.terminal_color_13 = tostring(p.constant)
+vim.g.terminal_color_14 = tostring(p.regexp)
+vim.g.terminal_color_15 = tostring(p.comment)
+vim.g.terminal_color_background = tostring(p.bg)
+vim.g.terminal_color_foreground = tostring(p.fg)
+
+vim.opt.background = 'dark'
+
 local theme = lush(function()
+
   return {
+    Normal { fg = p.fg , bg = p.bg },
+    ColorColumn { bg = p.line },
+    CursorColumn { bg = p.line },
+    CursorLine { bg = p.line },
+    CursorLineNr { fg = p.accent, bg = p.line },
+    LineNr { fg = p.guide.lighten(15), bg = p.line },
+
+    -- Syntax highlighting
+    Comment { fg = p.comment.lighten(10) },
+    Constant { fg = p.constant },
+    String { fg = p.string },  -- Character, Number, Boolean, Float
+    Identifier { fg = p.tag },
+    Function { fg = p.func },
+    Statement { fg = p.keyword },
+    Operator { fg = p.operator },
+    PreProc { fg = p.special },
+    Type { fg = p.tag },
+    Structure { fg = p.special },
+    Special { fg = p.special },
+
+    Underlined { fg = p.tag, gui = 'underline' },
+    Ignore {  },
+    Error { fg = p.fg, bg = p.error, gui = 'bold'},
+    Todo { fg = p.markup },
+
+    qfLineNr { fg = p.keyword },
+
+    Conceal { fg = p.guide },
+    CursorLineConceal { fg = p.guide, bg = p.line },
+    
+
+    Directory { fg = p.fg_idle },
+    DiffAdd { fg = p.string, bg = p.panel },
+    DiffChange { fg = p.tag, bg = p.panel },
+    DiffText { fg = p.fg, bg = p.panel },
+    ErrorMsg { fg = p.fg, bg = p.error, gui = 'bold'},
+    VertSplit { fg = p.bg.lighten(15), bg = p.bg.lighten(15) },  -- VertSplit
+    Folded { fg = p.fg_idle, bg = p.panel },
+    FoldColumn { bg = p.panel },
+    SignColumn { FoldColumn },
+
+    MatchParen { fg = p.bg, bg = hsl '#7C8793' },
+    ModeMsg { fg = p.string },
+    MoreMsg { ModeMsg },
+    NonText { fg = p.comment.darken(20) },
+    Pmenu { fg = p.fg, bg = p.selection },
+    PmenuSel { Pmenu, gui = 'reverse' },
+
+    Question { fg = p.string },
+    Search { fg = p.bg, bg = p.constant },
+    IncSearch { fg = p.fg, bg = Search.bg.darken(40)},
+    SpecialKey { NonText },
+    SpellCap { fg = p.tag, gui = 'underline' },
+    SpellLocal { fg = p.keyword, gui = 'underline' },
+    SpellBad { fg = p.error, gui = 'underline' },
+    SpellRare { fg = p.regexp, gui = 'underline' },
+    StatusLine { fg = p.fg, bg = p.panel },
+    StatusLineNC { StatusLine, fg = p.fg_idle },
+    
+    WildMenu { fg = p.bg, bg = p.markup },
+    TabLine { fg = p.fg, bg = p.panel, gui = 'reverse' },
+    Title { fg = 'keyword' },
+    Visual { bg = p.selection },
+    WarningMsg { fg = p.error },
+    LongLineWarning { bg = hsl'#371f1c', gui = 'underline' },
+
+    -- NERDTree
+    NERDTreeOpenable { fg = p.fg_idle },
+    NERDTreeClosable { fg = p.accent },
+    NERDTreeUp { fg = p.fg_idle },
+    NERDTreeDir { fg = p.func },
+    NERDTreeFile {},
+    NERDTreeDirSlash { fg = p.accent },
+
+    -- GitGutter
+    GitGutterAdd { fg = p.string },
+    GitGutterChange { fg = p.tag },
+    GitGutterDelete { fg = p.markup },
+    GitGutterChangeDelete { fg = p.func },
+
+    diffRemoved { Constant },
+    diffAdded { String },
+
     -- The following are all the Neovim default highlight groups from the docs
     -- as of 0.5.0-nightly-446, to aid your theme creation. Your themes should
     -- probably style all of these at a bare minimum.
@@ -101,7 +231,7 @@ local theme = lush(function()
     -- QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
     -- Search       { }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
     -- SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    -- SpellBad     { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise. 
+    -- SpellBad     { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     -- SpellCap     { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     -- SpellLocal   { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     -- SpellRare    { }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
