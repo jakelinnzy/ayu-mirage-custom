@@ -155,7 +155,7 @@ local theme = lush(function()
     
     WildMenu { fg = p.bg, bg = p.markup },
     TabLine { fg = p.fg, bg = p.panel, gui = 'reverse' },
-    Title { fg = 'keyword' },
+    Title { fg = p.keyword },
     Visual { bg = p.selection },
     WarningMsg { fg = p.error },
     LongLineWarning { bg = hsl'#371f1c', gui = 'underline' },
