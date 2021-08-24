@@ -45,30 +45,7 @@
 local lush = require('lush')
 local hsl = lush.hsl
 
-local p = {
-  bg = hsl '#212733',
-
-  comment = hsl '#7c8798',
-  markup = hsl '#F07178',
-  constant = hsl '#D4BFFF',
-  identifier = hsl '#80D4FF',
-  operator = hsl('#F29E74').rotate(-5),
-  tag = hsl '#5CCFE6',
-  regexp = hsl '#95E6CB',
-  string = hsl '#BBE67E',
-  func = hsl '#FFD57F',
-  special = hsl '#FFC44C',
-  keyword = hsl '#FFAE57',
-
-  error = hsl '#FF3333',
-  accent = hsl '#FFCC66',
-  panel = hsl '#272D38',
-  guide = hsl '#3D4751',
-  line = hsl '#242B38',
-  selection = hsl '#343F4C',
-  fg = hsl '#D9D7CE',
-  fg_idle = hsl '#607080',
-}
+local p = require('lush-theme.ayu-mirage-custom-colours')
 
 vim.g.terminal_color_0 = tostring(p.bg)
 vim.g.terminal_color_1 = tostring(p.markup)
@@ -133,7 +110,7 @@ local theme = lush(function()
     VertSplit { fg = p.bg.lighten(15), bg = p.bg.lighten(15) },  -- VertSplit
     Folded { fg = p.fg_idle, bg = p.panel },
     FoldColumn { bg = p.panel },
-    SignColumn { FoldColumn },
+    SignColumn { LineNr },
 
     MatchParen { fg = p.bg, bg = hsl '#7C8793' },
     ModeMsg { fg = p.string },
@@ -176,6 +153,10 @@ local theme = lush(function()
 
     diffRemoved { Constant },
     diffAdded { String },
+
+    TabLineSel { fg = p.fg.darken(30) },
+    TabLineFill { fg = p.fg.darken(50) },
+    
 
     -- The following are all the Neovim default highlight groups from the docs
     -- as of 0.5.0-nightly-446, to aid your theme creation. Your themes should
