@@ -98,6 +98,7 @@ local theme = lush(function()
 
     qfLineNr { fg = p.keyword },
 
+    EndOfBuffer { fg = p.bg },  -- Hide the ~ characters at the end
     Conceal { fg = p.guide },
     CursorLineConceal { fg = p.guide, bg = p.line },
     
