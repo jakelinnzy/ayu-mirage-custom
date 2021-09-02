@@ -99,9 +99,9 @@ local theme = lush(function()
     qfLineNr { fg = p.keyword },
 
     EndOfBuffer { fg = p.bg },  -- Hide the ~ characters at the end
-    Conceal { fg = p.guide },
-    CursorLineConceal { fg = p.guide, bg = p.line },
-    
+    Conceal { fg = p.comment },
+    CursorLineConceal { fg = p.comment, bg = p.line },
+
 
     Directory { fg = p.fg_idle },
     DiffAdd { fg = p.string, bg = p.panel },
@@ -130,7 +130,7 @@ local theme = lush(function()
     SpellRare { fg = p.regexp, gui = 'underline' },
     StatusLine { fg = p.fg, bg = p.panel },
     StatusLineNC { StatusLine, fg = p.fg_idle },
-    
+
     WildMenu { fg = p.bg, bg = p.markup },
     TabLine { fg = p.fg, bg = p.panel, gui = 'reverse' },
     Title { fg = p.keyword },
@@ -157,7 +157,7 @@ local theme = lush(function()
 
     TabLineSel { fg = p.fg.darken(30) },
     TabLineFill { fg = p.fg.darken(50) },
-    
+
 
     -- The following are all the Neovim default highlight groups from the docs
     -- as of 0.5.0-nightly-446, to aid your theme creation. Your themes should
